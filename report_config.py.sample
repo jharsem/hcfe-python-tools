@@ -1,0 +1,10 @@
+MSSQL_DB = {
+    'server':'tcp:XXXXX.hcfeye.com.au', 
+    'database':'YYYYYYY', 
+    'username':'sa', 
+    'password':'' 
+}
+EMAIL = {
+    'from':'Aaaaa Bbbbb <xxxxxx@yyyyy.com.au>',
+    'host':'192.168.x.yy'
+}

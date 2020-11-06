@@ -1,0 +1,11 @@
+*.csv
+.vscode
+report_config.py
+email_config.py
+emails/tmpl/_pgbackup
+__pycache__
+benefit/lib
+*.tgz
+*.xlsx
+*.zip
+*.txt
