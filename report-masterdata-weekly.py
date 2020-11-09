@@ -10,7 +10,7 @@ import csv
 import report_config as config
 
 branches = ['BLA','BON','BRO','CHA','HUR','PAR','SYD']
-sql = ['appt_px_all','Gls Appt No','Cl Appt No','cx_all','Gl Cx No','Cl Cx No','CL Cx Per RX','Total Appt No','OCT No','CL New Fit','Cl Refit','Ind Px']
+sql = ['appt_px_all','Gls Appt No','Cl Appt No','cx_all','Gl Cx No','Cl Cx No','CL Cx Per RX','Total Appt No','OCT No','CL New Fit','Cl Refit','Unique Cx in Month']
 
 tmp = {}
 
@@ -109,7 +109,7 @@ sqlstrings = {
         AND a.APPOINTMENT_TYPE in ('AL','SL')
         AND a.APP_PROGRESS = 5 
         GROUP BY a.BRANCH_IDENTIFIER""".format(str_dt_from,str_dt_to),
-    "Ind Px":"""
+    "Unique Cx in Month":"""
         SELECT i.BRANCH_IDENTIFIER, count(DISTINCT(i.PATIENTID))
         FROM INVOICE i with (NOLOCK)
         WHERE i.SALE_DATE BETWEEN '{}' AND '{}' 
@@ -158,7 +158,7 @@ def sendReport(f):
         OCT No         # OCT patients 
         CL New Fit     # New Fits (lens teaches) 
         Cl Refit       # Refit (based on appointments)
-        Individual PX  # Unique Patients per Month (based in invoices, including Medicare) no exclusion
+        Unique Cx in Month  # Unique Patients per Month (based in invoices, including Medicare) no exclusion
 
         NOTE: All of the above are given as unique patient count.
 
@@ -166,7 +166,7 @@ def sendReport(f):
     
     """.format(str_dt_from, str_dt_to)
     msg.set_content(messageText)
-    msg['Subject'] = "HCFE Weekly Masterdata Report for {} to {}".format(dt_from.strftime("%Y-%m-%d"),dt_to.strftime("%Y-%m-%d"))
+    msg['Subject'] = "HCFE Weekly Base Number Report for {} to {}".format(dt_from.strftime("%Y-%m-%d"),dt_to.strftime("%Y-%m-%d"))
     msg['From'] = fromaddr
     msg['To'] = toaddrs
     # Send the message via our own SMTP server.
